@@ -64,10 +64,10 @@ public class PopularWords {
     }
 
     private List<String> readDataFromTestResourcesFile(String resource) throws IOException {
-        Path path = Paths.get(System.getProperty("user.dir").concat("\\target\\test-classes\\" + resource));
+        Path path = Paths.get(System.getProperty("user.dir").concat("\\src\\test\\resources\\" + resource));
 
-        //other way, without using target path
-        //{@code Path path = Paths.get(System.getProperty("user.dir").toString().concat("\\src\\test\\resources\\" + resource));}
+        //other way, using target path
+        //{@code   Path path = Paths.get(System.getProperty("user.dir").concat("\\target\\test-classes\\" + resource));}
 
         Stream<String> lines = Files.lines(path);
         List<String> data = lines.collect(Collectors.toList());
