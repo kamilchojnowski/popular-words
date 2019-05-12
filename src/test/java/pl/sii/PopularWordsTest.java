@@ -1,14 +1,21 @@
 package pl.sii;
 
-import org.apache.commons.lang3.NotImplementedException;
 import org.junit.Test;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.*;
 
 public class PopularWordsTest {
     private static final PopularWords testee = new PopularWords();
@@ -46,6 +53,26 @@ public class PopularWordsTest {
     }
 
     private Map<String, Long> getWordsFrequencyListCreatedByAdamKilgarriff() {
-        throw new NotImplementedException("TODO implementation");
+        List<String> wordsFrequencyListCreatedByAdamKilgarriff = null;
+        Map<String, Long> map = new HashMap<>();
+
+        try {
+            Path path = Paths.get(getClass().getClassLoader().getResource("all.num").toURI());
+            Stream<String> lines = Files.lines(path);
+            wordsFrequencyListCreatedByAdamKilgarriff = lines.collect(Collectors.toList());
+            lines.close();
+        } catch (IOException eIO){
+            eIO.getStackTrace();
+        } catch (URISyntaxException eURISyntax){
+            eURISyntax.getStackTrace();
+        }
+
+        int i = 1;
+        while(i<wordsFrequencyListCreatedByAdamKilgarriff.size()){
+            map.put(wordsFrequencyListCreatedByAdamKilgarriff.get(i).split(" ")[1], Long.parseLong(wordsFrequencyListCreatedByAdamKilgarriff.get(i).split(" ")[0]));
+            i++;
+        }
+
+        return map;
     }
 }
